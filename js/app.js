@@ -46,22 +46,6 @@ function NavBar (){
 
         document.getElementById("navbar__list").appendChild(liTag);                 //append the li tag to ul tag
     }
-/*	const section = document.querySelectorAll('section');
-	for (let i = 0; i < section.length; i++) {	
-		const li = document.createElement('li');
-		const tag = document.createElement('a');	
-		const sectionName = section[i].getAttribute('data-nav');
-		const sectionNamePart = sectionName.replace(/\s/g, '').toLowerCase();
-		tag.setAttribute('href',"#"+sectionNamePart);
-		tag.setAttribute('id',"linkNumber" +[i+1]);
-		tag.innerText=sectionName;
-		li.appendChild(tag);
-        document.getElementById("navbar__list").appendChild(li);
-		document.getElementById("linkNumber" +[i+1]).addEventListener("click", function(){
-			Scrolling(i+1)
-		});
-	};
-    */
 }
 
 
