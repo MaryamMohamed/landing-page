@@ -12,7 +12,6 @@
  * JS Standard: ESlint
  * 
 */
-document.addEventListener('DOMContentLoaded', NavBar, false); 
 
 /**
  * Define Global Variables
@@ -35,9 +34,9 @@ document.addEventListener('DOMContentLoaded', NavBar, false);
 */
 
 // build the nav
-function NavBar (){
+function Nav (){
     const allSections       = document.querySelectorAll("section");                 //get all sections 
-    for (let counter        = 0; counter < allSections.length; counter++) {         //loop for each section
+    for (let counter = 0; counter < allSections.length; counter++) {                //loop for each section
         const liTag         = document.createElement("li");                         //for each section create li tag to append it at ul
 
         const hreafGet      = allSections[counter].getAttribute("id");              //get href attribute name for the section thats refer to section id
@@ -50,8 +49,32 @@ function NavBar (){
 
 
 // Add class 'active' to section when near top of viewport
-
-
+function Active (){
+    const allSections       = document.querySelectorAll("section");                 //get all sections
+    document.addEventListener('scroll', function () {
+        for (let counter = 0; counter < allSections.length; counter++) {
+            const cuurentSection    = allSections[counter];
+            const preSection        = allSections[counter-1];
+            const afterSection      = allSections[counter+1];
+            const currentSectionPosition = cuurentSection.getBoundingClientRect();
+            if (counter==0) {
+                cuurentSection.setAttribute('class','your-active-class');
+                afterSection.setAttribute('class', null);
+            }
+            
+            else if (counter < allSections.length - 1 && currentSectionPosition.top <= (innerHeight/3)) {
+                cuurentSection.setAttribute('class','your-active-class');
+                preSection.setAttribute('class', null);
+                afterSection.setAttribute('class', null);
+            }
+            
+            else if(counter <  allSections.length && currentSectionPosition.top <= (innerHeight/3)){
+                cuurentSection.setAttribute('class','your-active-class');
+                preSection.setAttribute('class', null);
+            }
+        }
+    });
+}
 // Scroll to anchor ID using scrollTO event
 
 
@@ -62,7 +85,9 @@ function NavBar (){
 */
 
 // Build menu 
+document.addEventListener('DOMContentLoaded', Nav, false); 
 
 // Scroll to section on link click
 
 // Set sections as active
+document.addEventListener('DOMContentLoaded', Active, false); 
