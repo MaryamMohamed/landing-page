@@ -17,15 +17,30 @@
  * Define Global Variables
  * 
 */
+const allSections       = document.querySelectorAll("section");
 
+const navbarListUl = document.getElementById('navbar__list');
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
+// active element in navbar
+function NavActive() {
+    const allATags       = document.querySelectorAll("a");
+    for (var counter = 0; counter < allATags.length; counter++) {
+        allATags[counter].addEventListener("click", function() {
+            var currentTag = document.querySelectorAll(".active");
+            currentTag[0].className = currentTag[0].className.replace(" active", "");
+            this.className += " active";
+        });
 
-
+        if(allSections[counter].className){
+            currentSection = allSections[counter];
+        }        
+    }
+}
 
 /**
  * End Helper Functions
@@ -35,13 +50,17 @@
 
 // build the nav
 function Nav (){
-    const allSections       = document.querySelectorAll("section");                 //get all sections 
     for (let counter = 0; counter < allSections.length; counter++) {                //loop for each section
         const liTag         = document.createElement("li");                         //for each section create li tag to append it at ul
 
         const hreafGet      = allSections[counter].getAttribute("id");              //get href attribute name for the section thats refer to section id
         const sectionName   = allSections[counter].getAttribute('data-nav');        //Get the section name
-        liTag.innerHTML     = "<a href='#" + hreafGet + "'" + "class='menu__link'" +">" + sectionName + "</a>";   //set a tag to li tag
+
+        if(counter==0){
+            liTag.innerHTML     = "<a href='" + hreafGet + "'" + "class='menu__link active'" +">" + sectionName + "</a>";   //set a tag to li tag 
+        }
+        else
+        liTag.innerHTML     = "<a href='" + hreafGet + "'" + "class='menu__link'" +">" + sectionName + "</a>";   //set a tag to li tag
 
         document.getElementById("navbar__list").appendChild(liTag);                 //append the li tag to ul tag
     }
@@ -50,7 +69,6 @@ function Nav (){
 
 // Add class 'active' to section when near top of viewport
 function Active (){
-    const allSections       = document.querySelectorAll("section");                 //get all sections
     document.addEventListener('scroll', function () {
         for (let counter = 0; counter < allSections.length; counter++) {
             const cuurentSection    = allSections[counter];
@@ -76,7 +94,19 @@ function Active (){
     });
 }
 // Scroll to anchor ID using scrollTO event
-
+function ScrollToSection() {
+    navbarListUl.addEventListener('click', (event) => {
+        event.preventDefault();                                                                         //prevent default action of navbar on click 
+            for (let counter = 0; counter < allSections.length; counter++) {                            //loop for each section
+                if (event.target.attributes['href'].nodeValue == allSections[counter].attributes['id'].nodeValue) {  //if 
+                    window.scrollTo({
+                        top: allSections[counter].offsetTop,
+                        behavior: 'smooth'
+                    })
+                }
+            }
+    });
+}
 
 /**
  * End Main Functions
@@ -88,6 +118,10 @@ function Active (){
 document.addEventListener('DOMContentLoaded', Nav, false); 
 
 // Scroll to section on link click
+document.addEventListener('DOMContentLoaded', ScrollToSection, false); 
 
 // Set sections as active
 document.addEventListener('DOMContentLoaded', Active, false); 
+
+//active current section at Navbar
+document.addEventListener('DOMContentLoaded', NavActive, false); 
