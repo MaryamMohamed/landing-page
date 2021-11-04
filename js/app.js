@@ -17,8 +17,7 @@
  * Define Global Variables
  * 
 */
-const allSections       = document.querySelectorAll("section");
-
+const allSections = document.querySelectorAll("section");
 const navbarListUl = document.getElementById('navbar__list');
 
 /**
@@ -28,20 +27,16 @@ const navbarListUl = document.getElementById('navbar__list');
 */
 // active element in navbar
 function NavActive() {
-    const allATags       = document.querySelectorAll("a");
-    for (var counter = 0; counter < allATags.length; counter++) {
-        allATags[counter].addEventListener("click", function() {
-            var currentTag = document.querySelectorAll(".active");
-            currentTag[0].className = currentTag[0].className.replace(" active", "");
-            this.className += " active";
-        });
+    const allATags = document.querySelectorAll('a');    //all a tags
+    document.addEventListener('scroll', function () {
+        let index = allSections.length;
+    
+        while(--index && window.scrollY + 50  < allSections[index].offsetTop) {}
+        allATags.forEach((a) => a.classList.remove('active'));
+        allATags[index].classList.add('active');
+    });
 
-        if(allSections[counter].className){
-            currentSection = allSections[counter];
-        }        
-    }
 }
-
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -50,19 +45,19 @@ function NavActive() {
 
 // build the nav
 function Nav (){
-    for (let counter = 0; counter < allSections.length; counter++) {                //loop for each section
-        const liTag         = document.createElement("li");                         //for each section create li tag to append it at ul
+    for (let counter = 0; counter < allSections.length; counter++) {       //loop for each section
+        const liTag = document.createElement("li");                        //for each section create li tag to append it at ul
 
-        const hreafGet      = allSections[counter].getAttribute("id");              //get href attribute name for the section thats refer to section id
-        const sectionName   = allSections[counter].getAttribute('data-nav');        //Get the section name
+        const hreafGet = allSections[counter].getAttribute("id");          //get href attribute name for the section thats refer to section id
+        const sectionName = allSections[counter].getAttribute('data-nav'); //Get the section name
 
         if(counter==0){
-            liTag.innerHTML     = "<a href='" + hreafGet + "'" + "class='menu__link active'" +">" + sectionName + "</a>";   //set a tag to li tag 
+            liTag.innerHTML = "<a href='" + hreafGet + "'" + "class='menu__link active'" +">" + sectionName + "</a>";  //set a tag to li tag 
         }
         else
-        liTag.innerHTML     = "<a href='" + hreafGet + "'" + "class='menu__link'" +">" + sectionName + "</a>";   //set a tag to li tag
+        liTag.innerHTML = "<a href='" + hreafGet + "'" + "class='menu__link'" +">" + sectionName + "</a>";  //set a tag to li tag
 
-        document.getElementById("navbar__list").appendChild(liTag);                 //append the li tag to ul tag
+        document.getElementById("navbar__list").appendChild(liTag);         //append the li tag to ul tag
     }
 }
 
@@ -71,9 +66,9 @@ function Nav (){
 function Active (){
     document.addEventListener('scroll', function () {
         for (let counter = 0; counter < allSections.length; counter++) {
-            const cuurentSection    = allSections[counter];
-            const preSection        = allSections[counter-1];
-            const afterSection      = allSections[counter+1];
+            const cuurentSection = allSections[counter];
+            const preSection = allSections[counter-1];
+            const afterSection = allSections[counter+1];
             const currentSectionPosition = cuurentSection.getBoundingClientRect();
             if (counter==0) {
                 cuurentSection.setAttribute('class','your-active-class');
