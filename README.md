@@ -16,12 +16,10 @@ This project is part of Udacity Nanodegree in Web Development Track that granted
 In this project, we build a landing page that uses JavaScript to create an interactive navigational experience for the user.
 
 ## Architecture
-css
 - styles.css    
-index.html
-js
+- index.html
 - app.js
-README.md
+- README.md
 
 ## Features
 1. The implementation of responsiveness of the website is aptly implemented.
